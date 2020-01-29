@@ -1,0 +1,4 @@
+-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --
+Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:01:06:07 +0100] "GET /internal/user/5fe5aeac-261d-4e2f-9811-c054edda14fa/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 92048
+Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:08:06:07 +0100] "GET /internal/user/335bb5ae-ecea-4b3d-adc1-806d83e1a728/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 259982
+Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:11:06:07 +0100] "GET /internal/user/dd06bd7c-f1a2-4fcf-8982-3e7ad5a0d420/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 230884
