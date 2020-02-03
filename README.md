@@ -26,7 +26,7 @@ python parser.py --to 21-11-2016_01-33 logfile.log
 python parser.py logfile.log
 
 Przykładowe wyjście:
-requests: 5361
-requests/sec: 3.5
-responses: (200: 10, 301: 20, 500: 56)
-avg size of 2xx responses: 4.32 Mb
+- requests: 5361
+- requests/sec: 3.5
+- responses: (200: 10, 301: 20, 500: 56)
+- avg size of 2xx responses: 4.32 Mb
