@@ -86,10 +86,6 @@ def start_end(first_logline):
                     # print("6. ok --to as 3. argv")
                     r = sys.argv[4] + "-00"
                     end = datetime.datetime.strptime(r, "%d-%m-%Y_%H-%M-00")
-            # elif (sys.argv[3]) == "--to" and len(sys.argv) == 4:
-            #     print("NIE ZOSTAŁA PODANA DATA 'END', ZOSTANIE UZYTA DOMYSLNA DATA KONCOWA LOGFILE:", default_end(first_logline))
-            # else:
-            #     print("7. NIEPOPRAWNY FORMAT SŁOWA '--TO': ZOSTANIE UZYTA DATA KONCOWA LOGFILE:", default_end(first_logline))
     if start == 0:
         print("ZOSTANIE UZYTA DOMYSLNA DATA POCZATKOWA, --FROM:", default_start(first_logline), ", gdyż wystąpił jeden z przypadków: "
               "1) NIEPOPRAWNY FORMAT SŁOWA '--from' "
