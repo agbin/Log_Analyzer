@@ -52,41 +52,5 @@ def test_default_end():
     result = parser.default_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
     assert result == datetime.datetime(2020, 1, 8, 14, 4, 44)
 
-def test_start_end():
-    # all sys.argv (were given (6) arguments)
-    sys.argv = ['parser.py', '--from', '01-12-2019_00-00-00', '--to', '01-12-2019_00-01-01', 'logfile.log']
-    result = parser.start_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
-    assert result == (datetime.datetime(2019, 12, 1, 0, 0, 0), datetime.datetime(2019, 12, 1, 0, 1, 1))
-    # sys.argv: ['parser.py', '--from', 'date' '--to' 'date'] (were given (5) arguments)
-    sys.argv = ['parser.py', '--from', '01-12-2019_00-00-00', '--to', '01-12-2019_00-01-01']
-    result = parser.start_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
-    assert result == (datetime.datetime(2019, 12, 1, 0, 0, 0), datetime.datetime(2019, 12, 1, 0, 1, 1))
-    # sys.argv: ['parser.py', '--from', 'date' '--to'] (were given (4) arguments)
-    sys.argv = ['parser.py', '--from', '01-12-2019_00-00-00', '--to']
-    result = parser.start_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
-    assert result == (datetime.datetime(2019, 12, 1, 0, 0, 0), datetime.datetime(2020, 1, 8, 14, 4, 44))
-    # sys.argv: ['parser.py', '--from', 'date'] (were given (3) arguments)
-    sys.argv = ['parser.py', '--from', 'logfile.log']
-    result = parser.start_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
-    assert result == (datetime.datetime(2019, 9, 6, 8, 39, 18), datetime.datetime(2020, 1, 8, 14, 4, 44))
-    # sys.argv: ['parser.py', '--to', 'date'] (were given (3) arguments)
-    sys.argv = ['parser.py', '--to', 'logfile.log']
-    result = parser.start_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
-    assert result == (datetime.datetime(2019, 9, 6, 8, 39, 18), datetime.datetime(2020, 1, 8, 14, 4, 44))
-    # sys.argv: ['parser.py', '--from', 'date'] (were given (2) arguments)
-    sys.argv = ['parser.py', '--from', '01-12-2019_00-00-00', 'logfile.log']
-    result = parser.start_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
-    assert result == (datetime.datetime(2019, 12, 1, 0, 0, 0), datetime.datetime(2020, 1, 8, 14, 4, 44))
-    # sys.argv: ['parser.py', '--from'] (were given (2) arguments)
-    sys.argv = ['parser.py', '--from']
-    result = parser.start_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
-    assert result == (datetime.datetime(2019, 9, 6, 8, 39, 18), datetime.datetime(2020, 1, 8, 14, 4, 44))
-    # sys.argv: ['parser.py', '--to'] (were given (2) arguments)
-    sys.argv = ['parser.py', '--to']
-    result = parser.start_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
-    assert result == (datetime.datetime(2019, 9, 6, 8, 39, 18), datetime.datetime(2020, 1, 8, 14, 4, 44))
-    # sys.argv: 'logfile.log' (were given (1) argument)
-    sys.argv = ['parser.py']
-    result = parser.start_end('-- Logs begin at Fri 2019-09-06 08:39:18 CEST, end at Wed 2020-01-08 14:04:44 CET. --')
-    assert result == (datetime.datetime(2019, 9, 6, 8, 39, 18), datetime.datetime(2020, 1, 8, 14, 4, 44))
+
 

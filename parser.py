@@ -1,13 +1,16 @@
 import datetime
 import sys
 
-# a) find how many word(s) "request" is or are in logline
+# a) Number of requests. Find if "request" is  in logline. If yes add 1 to num_req (number of requests)
+
 def requests_in_loggs(logline, num_req):
     if "requests" in logline:
         num_req += 1
     return num_req
 
-# b) find position of 'response' in log, if response in d dict add 1 to dict[response], if not add response to d dict
+# c) Number of individual server response codes. Find status of 'response' in log, if response is already in d (dict)
+# add 1 to it, if not add response to d dict, for example {200: 1}.
+
 def responses_in_loggs(logline, d):
     response = logline.split()[13]
     if response in d:
@@ -16,8 +19,9 @@ def responses_in_loggs(logline, d):
         d[response] = 1
     return d
 
-# c)  read 'size of request' in logline, if 'response' of this log begin at 2: add size of it to 'sizes_of_2xx'
-#     and add 1 to num_of_sizes_of_2xx
+# d) Average size of the generated response. Read 'size of request' from logline. If status of 'response' of this log
+# begin at 2::.Aadd size of it to 'sizes_of_2xx' and add 1 to num_of_sizes_of_2xx
+
 def avgsize(logline, d, sizes_of_2xx, num_of_sizes_of_2xx):
     size = logline.split()[14]  # type str
     for key in d:
@@ -26,29 +30,34 @@ def avgsize(logline, d, sizes_of_2xx, num_of_sizes_of_2xx):
             num_of_sizes_of_2xx += 1
     return sizes_of_2xx, num_of_sizes_of_2xx
 
-# calculate the difference of two dates and present it in seconds
+# calculate how many seconds there are between the dates - the beginning and the end of the log range
+
 def date_diff_in_Seconds(dt2, dt1):
     timedelta = dt2 - dt1
     return timedelta.days * 24 * 3600 + timedelta.seconds
 
-# d) count how many requests were send on 1 second (divide the number of requests by the time (in seconds))
+# b) count how many requests were send on 1 second (divide the number of requests by the time (in seconds))
+
 def req_on_sec(start, end, requests):
     timedelta_in_sec = date_diff_in_Seconds(end, start)
     return ("%.4f" %(requests / timedelta_in_sec))
 
 # default start date = first date from first line of logfile
+
 def default_start(first_line):
     default_start = first_line.split()[5] + "_" + first_line.split()[6]
     default_start_dt = datetime.datetime.strptime(default_start, "%Y-%m-%d_%H:%M:%S")
     return default_start_dt
 
 # default end date = last date from first line of logfile
+
 def default_end(first_line):
     default_end = first_line.split()[11] + "_" + first_line.split()[12]
     default_end_dt = datetime.datetime.strptime(default_end, "%Y-%m-%d_%H:%M:%S")
     return default_end_dt
 
 # considering sys.argv and default start and default end, specify start and end
+
 def start_end(first_logline):
     start = 0
     end = 0
@@ -86,22 +95,25 @@ def start_end(first_logline):
                     # print("6. ok --to as 3. argv")
                     r = sys.argv[4] + "-00"
                     end = datetime.datetime.strptime(r, "%d-%m-%Y_%H-%M-00")
-    if start == 0:
-        print("ZOSTANIE UZYTA DOMYSLNA DATA POCZATKOWA, --FROM:", default_start(first_logline), ", gdyż wystąpił jeden z przypadków: "
-              "1) NIEPOPRAWNY FORMAT SŁOWA '--from' "
-              "2) BRAK SŁOWA '--from' "
-              "3) NIEPOOPRAWNY FORMAT DATY POCZATKOWEJ"                                                                           
-              "3) DATA POCZATKOWA NIE ZOSTALA PODANA ")
-        start = default_start(first_logline)
-    if end == 0:
-        print("ZOSTANIE UZYTA DOMYSLNA DATA KONCOWA, --to:", default_end(first_logline), ", gdyż wystąpił jeden z przypadków: "
-              "1) NIEPOPRAWNY FORMAT SŁOWA '--to' "
-              "2) BRAK SŁOWA '--to' "
-              "3) NIEPOOPRAWNY FORMAT DATY KONCOWEJ "                                                                           
-              "3) DATA KONCOWA NIE ZOSTALA PODANA ")
-        end = default_end(first_logline)
+        if start == 0:
+            print("ZOSTANIE UZYTA DOMYSLNA DATA POCZATKOWA, --FROM:", default_start(first_logline), ", gdyż wystąpił jeden z przypadków: "
+                  "1) NIEPOPRAWNY FORMAT SŁOWA '--from' "
+                  "2) BRAK SŁOWA '--from' "
+                  "3) NIEPOOPRAWNY FORMAT DATY POCZATKOWEJ"
+                  "3) DATA POCZATKOWA NIE ZOSTALA PODANA ")
+            start = default_start(first_logline)
+        if end == 0:
+            print("ZOSTANIE UZYTA DOMYSLNA DATA KONCOWA, --to:", default_end(first_logline), ", gdyż wystąpił jeden z przypadków: "
+                  "1) NIEPOPRAWNY FORMAT SŁOWA '--to' "
+                  "2) BRAK SŁOWA '--to' "
+                  "3) NIEPOOPRAWNY FORMAT DATY KONCOWEJ "
+                  "3) DATA KONCOWA NIE ZOSTALA PODANA ")
+            end = default_end(first_logline)
     return start, end
 
+
+# Main function is like the entry point of a program. It takes all given args and have global parameteters to conect
+#with other functions.
 
 def main(*args):
     global requests
@@ -122,12 +134,9 @@ def main(*args):
         with open(file) as f:
             first_line = f.readline()
             start, end = start_end(first_line)
-            # results can be caunted if start date is smaller than end date
+            # results can be shown if start date is smaller than end date
             if start < end:
-                print("")
-                print("from:", start)
-                print("to:", end)
-                print("")
+                print("from:", start, "to:", end, '\n')
                 for line in f:
                     # date of the individual log (changed on format: datetime)
                     data0 = line.split()[8]
@@ -141,24 +150,22 @@ def main(*args):
                 requests_sec = req_on_sec(start, end, requests)
             else:
                 print("DATA --FROM MUSI BYC DATA MNIEJSZA OD DATY --TO")
-        # print requests, requests/sec, responses, avg size of 2xx responses (if start date were smaller than end date)
-        if start < end:
-            print("requests:", requests)
-            print("requests/sec:", requests_sec)
-            print("responses:", d)
-            if num_of_sizes_of_2xx == 0:
-                avg_size_of_2xx = 0
-            else:
-                avg_size_of_2xx = sizes_of_2xx / num_of_sizes_of_2xx  # in bytes
-            avg_size_of_2xx_Mb = (avg_size_of_2xx * 8) / 1048576
-            print("avg size of 2xx responses:", avg_size_of_2xx_Mb, "Mb")
-# if name of log does not exist:
+            # print requests, requests/sec, responses, avg size of 2xx responses (if start date were smaller than end date)
+            if start < end:
+                print("requests:", requests)
+                print("requests/sec:", requests_sec)
+                print("responses:", d)
+                if num_of_sizes_of_2xx == 0:
+                    avg_size_of_2xx = 0
+                else:
+                    avg_size_of_2xx = sizes_of_2xx / num_of_sizes_of_2xx  # in bytes
+                avg_size_of_2xx_Mb = (avg_size_of_2xx * 8) / 1048576
+                print("avg size of 2xx responses:", avg_size_of_2xx_Mb, "Mb")
+    # if name of log does not exist:
     except IOError:
         print('''TAKI LOG FILE NIE ISTNIEJE, WPISZ np.: logfile.log  PRZYKLADOWE WYWOLANIE: 
               python3 parser.py --from 01-12-2019_11-23-11 --to 01-12-2019_00-33 logfile.log''')
     return requests, requests_sec, d, avg_size_of_2xx_Mb
-
-
 
 main()
 

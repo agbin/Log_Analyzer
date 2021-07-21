@@ -87,20 +87,21 @@ avg size of 2xx responses: 0.0059143087158410644 Mb
 ## Pytest
 Example call:
 ```
-pytest tests.py -vv
+pytest test_parser.py -v
 ```
 Example output:
 ```
-tests.py::test_requests_in_loggs[Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:11:06:07 +0100] "GET /internal/user/5fe5aeac-261d-4e2f-9811-c054edda14fa/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 92048-0-1] <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [  9%]
-tests.py::test_requests_in_loggs[Dec 01 11:05:45 app3-test-vm1 gunicorn[53253]: 172.16.3.5 - - [01/Dec/2019:11:05:45 +0100] "GET /.well-known/assetlinks.json HTTP/1.0" 404 0 "-" "GoogleAssociationService" 288488-0-0] <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [ 18%]
-tests.py::test_responses_in_loggs[Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:11:06:07 +0100] "GET /internal/user/5fe5aeac-261d-4e2f-9811-c054edda14fa/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 92048-d0-result0] <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [ 27%]
-tests.py::test_responses_in_loggs[Nov 30 23:04:03 actify3-test-vm1 gunicorn[53253]: 172.16.3.5 - - [30/Nov/2019:23:04:03 +0100] "GET /.well-known/assetlinks.json HTTP/1.0" 404 0 "-" "GoogleAssociationService" 286953-d1-result1] <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [ 36%]
-tests.py::test_avgsize[Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:11:06:07 +0100] "GET /internal/user/5fe5aeac-261d-4e2f-9811-c054edda14fa/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 92048-d0-720-1-result0] <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [ 45%]
-tests.py::test_avgsize[Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:11:06:07 +0100] "GET /internal/user/5fe5aeac-261d-4e2f-9811-c054edda14fa/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 92048-d1-1440-2-result1] <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [ 54%]
-tests.py::test_date_diff_in_Seconds <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [ 63%]
-tests.py::test_req_on_sec <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [ 72%]
-tests.py::test_default_start <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [ 81%]
-tests.py::test_default_end <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [ 90%]
-tests.py::test_start_end <- ../../2020_01_29a_log_file/logfile/untitled65/tests.py PASSED [100%]
+test_parser.py::test_requests_in_loggs[Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:11:06:07 +0100] "GET /internal/user/5fe5aeac-261d-4e2f-9811-c054edda14fa/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 92048-0-1] PASSED [ 10%]
+test_parser.py::test_requests_in_loggs[Dec 01 11:05:45 app3-test-vm1 gunicorn[53253]: 172.16.3.5 - - [01/Dec/2019:11:05:45 +0100] "GET /.well-known/assetlinks.json HTTP/1.0" 404 0 "-" "GoogleAssociationService" 288488-0-0] PASSED [ 20%]
+test_parser.py::test_responses_in_loggs[Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:11:06:07 +0100] "GET /internal/user/5fe5aeac-261d-4e2f-9811-c054edda14fa/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 92048-d0-result0] PASSED [ 30%]
+test_parser.py::test_responses_in_loggs[Nov 30 23:04:03 actify3-test-vm1 gunicorn[53253]: 172.16.3.5 - - [30/Nov/2019:23:04:03 +0100] "GET /.well-known/assetlinks.json HTTP/1.0" 404 0 "-" "GoogleAssociationService" 286953-d1-result1] PASSED [ 40%]
+test_parser.py::test_avgsize[Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:11:06:07 +0100] "GET /internal/user/5fe5aeac-261d-4e2f-9811-c054edda14fa/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 92048-d0-720-1-result0] PASSED [ 50%]
+test_parser.py::test_avgsize[Dec 01 11:06:07 app3-test-vm1 gunicorn[53253]: 172.16.3.14 - - [01/Dec/2019:11:06:07 +0100] "GET /internal/user/5fe5aeac-261d-4e2f-9811-c054edda14fa/agenda/2019-12-01/2019-12-02 HTTP/1.1" 200 720 "-" "python-requests/2.22.0" 92048-d1-1440-2-result1] PASSED [ 60%]
+test_parser.py::test_date_diff_in_Seconds PASSED                         [ 70%]
+test_parser.py::test_req_on_sec PASSED                                   [ 80%]
+test_parser.py::test_default_start PASSED                                [ 90%]
+test_parser.py::test_default_end PASSED                                  [100%]
+
+============================== 10 passed in 0.02s ==============================
 ```
 
